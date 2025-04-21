@@ -1,0 +1,22 @@
+version: "3.9"
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - VITE_API_BASE=http://localhost:8000
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: ./backend # <- directory containing the Dockerfile
+      dockerfile: Dockerfile # optional; defaults to "Dockerfile"
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
